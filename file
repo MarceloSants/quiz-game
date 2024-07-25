@@ -1,0 +1,32 @@
+[33mcommit 2f106ffcd8d5976e42d96a1c6410e01038b54d88[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;32mfeature/refactory-components[m[33m)[m
+Author: Marcelo Santos <marcelosantos220716@gmail.com>
+Date:   Thu Jul 25 13:57:15 2024 -0300
+
+    Refectory Header and Answer Review button
+
+[33mcommit 3be953c60b17ca05c708c514c0b23f3be9b7a886[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Marcelo Santos <marcelosantos220716@gmail.com>
+Date:   Thu Jul 25 12:25:58 2024 -0300
+
+    Format code
+    
+    - Replace double quotes with single quotes
+
+[33mcommit 6bc1dd9ad5cc2a0de11a6349b81f1b2bd156f85b[m
+Author: Marcelo Santos <marcelosantos220716@gmail.com>
+Date:   Thu Jul 25 09:45:57 2024 -0300
+
+    Add skip question feature
+    
+    - add skip question loop
+    
+    * Format all codes
+
+[33mcommit b9d4d789efc271015815476b2cf3d2c3e68f09cb[m
+Author: Marcelo Santos <marcelosantos220716@gmail.com>
+Date:   Tue Jul 23 15:53:03 2024 -0300
+
+    Create quiz game
+    
+    * running with mock questions
+    * two question themes (video game and cinema)

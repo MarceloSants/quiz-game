@@ -15,3 +15,8 @@ export interface QuestionTheme {
   name: string;
   color: string;
 }
+
+export interface AnswerOption {
+  id: number;
+  text: string;
+}

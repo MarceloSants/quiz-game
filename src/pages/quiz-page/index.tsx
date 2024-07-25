@@ -3,15 +3,10 @@ import { Check, X } from 'lucide-react';
 import { QuizOption } from './components/quiz-option';
 import { questions } from '../../mocks/questions';
 import { questionThemes } from '../../lib/question-themes';
-import { QuestionTheme } from '../../types/types';
+import { AnswerOption, QuestionTheme } from '../../types/types';
 import { Timer } from './components/timer';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/header';
-
-interface AnswerOption {
-  id: number;
-  text: string;
-}
 
 const initialAnswers = Array.from({ length: questions.length }, () => false);
 
