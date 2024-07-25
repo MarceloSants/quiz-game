@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { Check, X } from "lucide-react";
-import { QuizOption } from "./components/quiz-option";
-import { questions } from "../../mocks/questions";
-import { questionThemes } from "../../lib/question-themes";
-import { QuestionTheme } from "../../types/types";
-import { Timer } from "./components/timer";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { Check, X } from 'lucide-react';
+import { QuizOption } from './components/quiz-option';
+import { questions } from '../../mocks/questions';
+import { questionThemes } from '../../lib/question-themes';
+import { QuestionTheme } from '../../types/types';
+import { Timer } from './components/timer';
+import { useNavigate } from 'react-router-dom';
+import { Header } from '../components/header';
 
 interface AnswerOption {
   id: number;
@@ -106,12 +107,12 @@ function QuizPage() {
   };
 
   const handleTimeOver = () => {
-    console.log("timer over");
+    console.log('timer over');
     handleGameFinish();
   };
 
   const handleGameFinish = () => {
-    navigate("/quiz-result", { state: { answers: answers } });
+    navigate('/quiz-result', { state: { answers: answers } });
   };
 
   const currentQuestionTheme = getQuestionTheme(
@@ -120,30 +121,28 @@ function QuizPage() {
 
   return (
     <div className='w-full flex flex-col items-center justify-start relative'>
-      <div className='flex text-white bg-blueGradient w-full h-28 justify-center'>
-        <div className='flex w-2/4 h-full items-center justify-between'>
-          <div className='flex gap-8'>
-            <div className='flex items-center gap-2'>
-              <Check />
-              <div className='flex items-baseline gap-2'>
-                <p className='font-semibold'>{correctAnswers}</p>
-                <p className='text-sm'>CORRECT</p>
-              </div>
-            </div>
-            <div className='flex items-center gap-2'>
-              <X />
-              <div className='flex items-baseline gap-2'>
-                <p className='font-semibold'>{wrongAnswers}</p>
-                <p className='text-sm'>WRONG</p>
-              </div>
+      <Header>
+        <div className='flex gap-8'>
+          <div className='flex items-center gap-2'>
+            <Check />
+            <div className='flex items-baseline gap-2'>
+              <p className='font-semibold'>{correctAnswers}</p>
+              <p className='text-sm'>CORRECT</p>
             </div>
           </div>
-          <Timer
-            totalDuration={90}
-            handleTimeOver={handleTimeOver}
-          />
+          <div className='flex items-center gap-2'>
+            <X />
+            <div className='flex items-baseline gap-2'>
+              <p className='font-semibold'>{wrongAnswers}</p>
+              <p className='text-sm'>WRONG</p>
+            </div>
+          </div>
         </div>
-      </div>
+        <Timer
+          totalDuration={90}
+          handleTimeOver={handleTimeOver}
+        />
+      </Header>
       <div className='bg-white w-2/4 h-max p-8 rounded-sm absolute top-20 shadow-cardShadow'>
         <div className='flex flex-col gap-4 sm:gap-2 lg:gap-6 xl:gap-8 2xl:gap-12'>
           <div className='flex flex-col px-4 gap-2'>

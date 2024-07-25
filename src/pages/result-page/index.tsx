@@ -1,14 +1,12 @@
-import { Check, X } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
+import { Header } from '../components/header';
+import { AnswerResultButton } from './components/answer-result-button';
 
-const handleReview = () => {};
+const handleReview = (questionIndex = 0) => {
+  console.log(`Review from question ${questionIndex}`);
+};
 
 const handleFinish = () => {};
-
-const correctAnswerBackground =
-  'flex w-8 h-8 items-center justify-center text-white bg-greenGradient rounded-full';
-const wrongAnswerBackground =
-  'flex w-8 h-8 items-center justify-center text-white bg-redGradient rounded-full';
 
 function ResultPage() {
   const state = useLocation().state;
@@ -16,12 +14,10 @@ function ResultPage() {
 
   return (
     <div className='w-full flex flex-col items-center justify-start relative'>
-      <div className='flex text-white bg-blueGradient w-full h-28 justify-center'>
-        <div className='flex w-2/4 h-full items-center justify-between'>
-          <p>You finished</p>
-          <p>00:00</p>
-        </div>
-      </div>
+      <Header>
+        <p>You finished</p>
+        <p>00:00</p>
+      </Header>
       <div className='bg-white w-2/4 h-max p-8 rounded-sm absolute top-20 shadow-cardShadow'>
         <div className='flex flex-col items-center gap-6 lg:gap-6 xl:gap-8 2xl:gap-12'>
           <div className='flex flex-col gap-2 items-center px-4'>
@@ -32,14 +28,13 @@ function ResultPage() {
           <div className='w-1/2 flex items-start justify-center gap-2 flex-wrap'>
             {answers.map((answer, index) => {
               return (
-                <button
+                <AnswerResultButton
                   key={index}
-                  className={
-                    answer ? correctAnswerBackground : wrongAnswerBackground
-                  }
-                >
-                  {answer ? <Check /> : <X />}
-                </button>
+                  answer={answer}
+                  onClick={() => {
+                    handleReview(index);
+                  }}
+                />
               );
             })}
           </div>
