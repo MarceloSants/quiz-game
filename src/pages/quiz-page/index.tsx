@@ -1,21 +1,23 @@
 import { useState } from 'react';
 import { Check, X } from 'lucide-react';
+
 import { QuizOption } from './components/quiz-option';
-import { questions } from '../../mocks/questions';
-import { questionThemes } from '../../lib/question-themes';
-import { AnswerOption, QuestionTheme } from '../../types/types';
 import { Timer } from './components/timer';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/header';
 
-const initialAnswers = Array.from({ length: questions.length }, () => false);
+import { questions } from '../../mocks/questions';
+import { questionThemes } from '../../lib/question-themes';
+import { AnswerOption, QuestionTheme } from '../../types/types';
+
+const initialAnswers = Array.from({ length: questions.length }, () => -1);
 
 function QuizPage() {
   const navigate = useNavigate();
 
   const [correctAnswers, SetCorrectAnswers] = useState(0);
   const [wrongAnswers, SetWrongAnswers] = useState(0);
-  const [answers, setAnswers] = useState<boolean[]>(initialAnswers);
+  const [answers, setAnswers] = useState<number[]>(initialAnswers);
   const [skippedQuestions, setSkippedQuestions] = useState<number[]>([]);
 
   const [selectedAnswer, SetSelectedAnswer] = useState(-1);
@@ -45,8 +47,7 @@ function QuizPage() {
     }
 
     const newAnswers = [...answers];
-    newAnswers[currentQuestion] =
-      selectedAnswer == questions[currentQuestion].correctAnswer;
+    newAnswers[currentQuestion] = selectedAnswer;
 
     setAnswers(newAnswers);
     SetIsAnswerConfirmed(true);

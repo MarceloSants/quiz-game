@@ -1,16 +1,20 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Header } from '../components/header';
 import { AnswerResultButton } from './components/answer-result-button';
-
-const handleReview = (questionIndex = 0) => {
-  console.log(`Review from question ${questionIndex}`);
-};
+import { questions } from '../../mocks/questions';
 
 const handleFinish = () => {};
 
 function ResultPage() {
+  const navigate = useNavigate();
   const state = useLocation().state;
-  const answers: boolean[] = state.answers;
+  const answers: number[] = state.answers;
+
+  const handleReview = (questionIndex = 0) => {
+    navigate('/answer-review', {
+      state: { questionIndex: questionIndex, answers: answers },
+    });
+  };
 
   return (
     <div className='w-full flex flex-col items-center justify-start relative'>
@@ -30,7 +34,7 @@ function ResultPage() {
               return (
                 <AnswerResultButton
                   key={index}
-                  answer={answer}
+                  answer={answer === questions[index].correctAnswer}
                   onClick={() => {
                     handleReview(index);
                   }}

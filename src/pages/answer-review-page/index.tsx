@@ -15,17 +15,24 @@ function AnswerReviewPage() {
   const state = useLocation().state;
   const answers: number[] = state?.answers ?? [-1, -1, -1, -1, -1, -1, -1, -1];
 
-  const [currentQuestion, SetCurrentQuestion] = useState(0);
-  const [selectedAnswer, SetSelectedAnswer] = useState(-1);
+  const [currentQuestion, SetCurrentQuestion] = useState(
+    state?.questionIndex ?? 0
+  );
+
+  const [selectedAnswer, SetSelectedAnswer] = useState(
+    answers[state?.questionIndex] !== -1
+      ? answers[state?.questionIndex]
+      : questions[currentQuestion].options.length
+  );
 
   const handleFinishReview = () => {
     navigate('/quiz-result', { state: { answers: answers } });
   };
 
   const handlePreviousQuestion = () => {
-    let previousQuestionIndex = 0;
-    if (currentQuestion < questions.length - 1) {
-      previousQuestionIndex = currentQuestion + 1;
+    let previousQuestionIndex = questions.length - 1;
+    if (currentQuestion > 0) {
+      previousQuestionIndex = currentQuestion - 1;
     }
 
     setQuestion(previousQuestionIndex);
@@ -42,7 +49,16 @@ function AnswerReviewPage() {
 
   const setQuestion = (index: number) => {
     SetCurrentQuestion(index);
-    SetSelectedAnswer(answers[index]);
+    const answerFixed = getAnswerFixed(index);
+    SetSelectedAnswer(answerFixed);
+  };
+
+  const getAnswerFixed = (index: number) => {
+    if (answers[index] !== -1) {
+      return answers[index];
+    } else {
+      return questions[currentQuestion].options.length;
+    }
   };
 
   const getQuestionTheme = (code: string) => {
@@ -116,6 +132,14 @@ function AnswerReviewPage() {
                     );
                   }
                 )}
+                <QuizOption
+                  index={questions[currentQuestion].options.length}
+                  isAnswerConfirmed={true}
+                  rightAnswer={questions[currentQuestion].correctAnswer}
+                  selectedAnswer={selectedAnswer}
+                  answer={'None'}
+                  handleAnswerSelect={() => {}}
+                />
               </div>
             </div>
             <div className='flex gap-4 items-end justify-center'>
