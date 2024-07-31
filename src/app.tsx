@@ -4,11 +4,16 @@ import './app.css';
 import QuizPage from './pages/quiz-page';
 import ResultPage from './pages/result-page';
 import { AnswerReviewPage } from './pages/answer-review-page';
+import { GameRunSettingsPage } from './pages/game-run-settings-page';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/quiz',
     element: <QuizPage />,
+  },
+  {
+    path: '/game-setting',
+    element: <GameRunSettingsPage />,
   },
   {
     path: '/quiz-result',

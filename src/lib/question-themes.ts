@@ -7,7 +7,7 @@ export const questionThemes: QuestionTheme[] = [
     color: 'bg-red-400',
   },
   {
-    code: 'cinema',
+    code: 'cinema1',
     name: 'Cinema',
     color: 'bg-purple-400',
   },

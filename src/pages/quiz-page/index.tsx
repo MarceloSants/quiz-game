@@ -3,23 +3,32 @@ import { Check, X } from 'lucide-react';
 
 import { QuizOption } from './components/quiz-option';
 import { Timer } from './components/timer';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Header } from '../components/header';
 
-import { questions } from '../../mocks/questions';
+import { questions as mockQuestions } from '../../mocks/questions';
 import { questionThemes } from '../../lib/question-themes';
 import { AnswerOption, QuestionTheme } from '../../types/types';
 
-const initialAnswers = Array.from({ length: questions.length }, () => -1);
+interface QuizPageLocationState {
+  selectedThemes: string[];
+  numberOfQuestions: number;
+  totalTime: number;
+}
 
 function QuizPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const quizPageLocationState: QuizPageLocationState = location?.state;
+  const questions = mockQuestions;
 
   const [correctAnswers, SetCorrectAnswers] = useState(0);
   const [wrongAnswers, SetWrongAnswers] = useState(0);
-  const [answers, setAnswers] = useState<number[]>(initialAnswers);
-  const [skippedQuestions, setSkippedQuestions] = useState<number[]>([]);
+  const [answers, setAnswers] = useState<number[]>(
+    Array.from({ length: quizPageLocationState.numberOfQuestions }, () => -1)
+  );
 
+  const [skippedQuestions, setSkippedQuestions] = useState<number[]>([]);
   const [selectedAnswer, SetSelectedAnswer] = useState(-1);
   const [currentQuestion, SetCurrentQuestion] = useState(0);
   const [isAnswerConfirmed, SetIsAnswerConfirmed] = useState(false);
@@ -48,7 +57,6 @@ function QuizPage() {
 
     const newAnswers = [...answers];
     newAnswers[currentQuestion] = selectedAnswer;
-
     setAnswers(newAnswers);
     SetIsAnswerConfirmed(true);
   };
@@ -135,7 +143,7 @@ function QuizPage() {
           </div>
         </div>
         <Timer
-          totalDuration={90}
+          totalDuration={quizPageLocationState['totalTime']}
           handleTimeOver={handleTimeOver}
         />
       </Header>
@@ -143,7 +151,9 @@ function QuizPage() {
         <div className='flex flex-col gap-4 sm:gap-2 lg:gap-6 xl:gap-8 2xl:gap-12'>
           <div className='flex flex-col px-4 gap-2'>
             <div className='flex items-center justify-between'>
-              <p className='text-gray-400'>{`Question ${currentQuestion + 1} (${questions.length} remaining)`}</p>
+              <p className='text-gray-400'>{`Question ${currentQuestion + 1} (${
+                questions.length
+              } remaining)`}</p>
               <div className='flex gap-1'>
                 {currentQuestionTheme ? (
                   <div
