@@ -12,7 +12,6 @@ import { useQuiz } from '../../lib/quiz-context';
 
 interface QuizPageLocationState {
   selectedThemes: string[];
-  numberOfQuestions: number;
   totalTime: number;
 }
 
@@ -25,7 +24,7 @@ function QuizPage() {
   const [correctAnswers, SetCorrectAnswers] = useState(0);
   const [wrongAnswers, SetWrongAnswers] = useState(0);
   const [answers, setAnswers] = useState<number[]>(
-    Array.from({ length: quizPageLocationState.numberOfQuestions }, () => -1)
+    Array.from({ length: questions.length }, () => -1)
   );
 
   const [skippedQuestions, setSkippedQuestions] = useState<number[]>([]);

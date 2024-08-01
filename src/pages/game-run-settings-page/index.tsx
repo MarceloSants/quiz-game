@@ -60,7 +60,6 @@ function GameRunSettingsPage() {
     navigate('/quiz', {
       state: {
         selectedThemes: selectedThemes,
-        numberOfQuestions: numberOfQuestions,
         totalTime: totalTime,
       },
     });
