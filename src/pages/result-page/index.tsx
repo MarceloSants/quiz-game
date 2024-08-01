@@ -1,13 +1,14 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Header } from '../components/header';
 import { AnswerResultButton } from './components/answer-result-button';
-import { questions } from '../../mocks/questions';
+import { useQuiz } from '../../lib/quiz-context';
 
 const handleFinish = () => {};
 
 function ResultPage() {
   const navigate = useNavigate();
   const state = useLocation().state;
+  const { questions } = useQuiz();
   const answers: number[] = state.answers;
 
   const handleReview = (questionIndex = 0) => {

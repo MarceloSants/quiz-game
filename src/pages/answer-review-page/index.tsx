@@ -4,13 +4,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Header } from '../components/header';
 import { QuizOption } from '../quiz-page/components/quiz-option';
 
-import { questions } from '../../mocks/questions';
+// import { questions } from '../../mocks/questions';
 import { AnswerOption, QuestionTheme } from '../../types/types';
 import { questionThemes } from '../../lib/question-themes';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useQuiz } from '../../lib/quiz-context';
 
 function AnswerReviewPage() {
   const navigate = useNavigate();
+  const { questions } = useQuiz();
 
   const state = useLocation().state;
   const answers: number[] = state?.answers ?? [-1, -1, -1, -1, -1, -1, -1, -1];
@@ -93,7 +95,9 @@ function AnswerReviewPage() {
           <div className='flex flex-col gap-4 sm:gap-2 lg:gap-6 xl:gap-8 2xl:gap-12'>
             <div className='flex flex-col px-4 gap-2'>
               <div className='flex items-center justify-between'>
-                <p className='text-gray-400'>{`Question ${currentQuestion + 1} (${questions.length} remaining)`}</p>
+                <p className='text-gray-400'>{`Question ${
+                  currentQuestion + 1
+                } (${questions.length} remaining)`}</p>
                 <div className='flex gap-1'>
                   {currentQuestionTheme ? (
                     <div

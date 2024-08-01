@@ -5,6 +5,7 @@ import QuizPage from './pages/quiz-page';
 import ResultPage from './pages/result-page';
 import { AnswerReviewPage } from './pages/answer-review-page';
 import { GameRunSettingsPage } from './pages/game-run-settings-page';
+import { QuizProvider } from './lib/quiz-context';
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QuizProvider>
+      <RouterProvider router={router} />
+    </QuizProvider>
+  );
 }
 
 export default App;

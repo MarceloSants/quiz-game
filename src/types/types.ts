@@ -10,6 +10,11 @@ export interface Question {
   correctAnswer: number;
 }
 
+export interface QuestionGroup {
+  theme: string;
+  questions: Question[];
+}
+
 export interface QuestionTheme {
   code: string;
   name: string;

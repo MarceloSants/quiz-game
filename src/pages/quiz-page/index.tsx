@@ -6,9 +6,9 @@ import { Timer } from './components/timer';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Header } from '../components/header';
 
-import { questions as mockQuestions } from '../../mocks/questions';
 import { questionThemes } from '../../lib/question-themes';
 import { AnswerOption, QuestionTheme } from '../../types/types';
+import { useQuiz } from '../../lib/quiz-context';
 
 interface QuizPageLocationState {
   selectedThemes: string[];
@@ -19,8 +19,8 @@ interface QuizPageLocationState {
 function QuizPage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { questions } = useQuiz();
   const quizPageLocationState: QuizPageLocationState = location?.state;
-  const questions = mockQuestions;
 
   const [correctAnswers, SetCorrectAnswers] = useState(0);
   const [wrongAnswers, SetWrongAnswers] = useState(0);

@@ -5,12 +5,15 @@ import { questionThemes } from '../../lib/question-themes';
 
 import { Header } from '../components/header';
 import { useNavigate } from 'react-router-dom';
+import { useQuiz } from '../../lib/quiz-context';
+import { getQuestionsByTheme } from '../../mocks/questions';
 
 function GameRunSettingsPage() {
   const navigate = useNavigate();
+  const { setQuestions } = useQuiz();
   const [selectedThemes, setSelectedThemes] = useState<string[]>([]);
-  const [numberOfQuestions, setNumberOfQuestions] = useState(0);
-  const [totalTime, setTotalTime] = useState(0);
+  const [numberOfQuestions, setNumberOfQuestions] = useState(5);
+  const [totalTime, setTotalTime] = useState(60);
 
   const handleThemeClick = (code: string) => {
     const index = selectedThemes.findIndex((themeCode) => themeCode === code);
@@ -42,14 +45,23 @@ function GameRunSettingsPage() {
       return;
     }
 
-    const data = new FormData(event.currentTarget);
-    const values = Object.fromEntries(data.entries());
+    // const data = new FormData(event.currentTarget);
+    // const values = Object.fromEntries(data.entries());
     // console.log(values);
+    const questions = selectedThemes
+      .map((theme) => {
+        console.log(theme);
+        return getQuestionsByTheme(theme, numberOfQuestions);
+      })
+      .flat();
+    setQuestions(questions);
+    console.log(questions);
+
     navigate('/quiz', {
       state: {
         selectedThemes: selectedThemes,
-        numberOfQuestions: values.numberOfQuestions,
-        totalTime: values.totalTime,
+        numberOfQuestions: numberOfQuestions,
+        totalTime: totalTime,
       },
     });
   };
@@ -85,7 +97,11 @@ function GameRunSettingsPage() {
                         onClick={() => {
                           handleThemeClick(theme.code);
                         }}
-                        className={`${selectedThemes.includes(theme.code) ? theme.color : 'bg-slate-400'} w-fit rounded-md px-2`}
+                        className={`${
+                          selectedThemes.includes(theme.code)
+                            ? theme.color
+                            : 'bg-slate-400'
+                        } w-fit rounded-md px-2`}
                       >
                         <p className='text-white text-sm font-semibold'>
                           {theme.name}
@@ -110,7 +126,7 @@ function GameRunSettingsPage() {
                       form='ruleForm'
                       name='numberOfQuestions'
                       min={5}
-                      max={8}
+                      max={10}
                       value={numberOfQuestions}
                       onChange={(input) => {
                         setNumberOfQuestions(parseInt(input.target.value));
