@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Check, X } from 'lucide-react';
 
 import { QuizOption } from './components/quiz-option';
 import { Timer } from './components/timer';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { Header } from '../components/header';
 
 import { questionThemes } from '../../lib/question-themes';
@@ -11,7 +11,6 @@ import { AnswerOption, QuestionTheme } from '../../types/types';
 import { useQuiz } from '../../lib/quiz-context';
 
 interface QuizPageLocationState {
-  selectedThemes: string[];
   totalTime: number;
 }
 
@@ -23,6 +22,7 @@ function QuizPage() {
 
   const [correctAnswers, SetCorrectAnswers] = useState(0);
   const [wrongAnswers, SetWrongAnswers] = useState(0);
+
   const [answers, setAnswers] = useState<number[]>(
     Array.from({ length: questions.length }, () => -1)
   );

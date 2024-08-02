@@ -1,6 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { Header } from '../components/header';
 import { AnswerResultButton } from './components/answer-result-button';
+
 import { useQuiz } from '../../lib/quiz-context';
 
 const handleFinish = () => {};

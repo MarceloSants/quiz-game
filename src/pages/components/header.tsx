@@ -1,5 +1,7 @@
+import { ReactNode } from 'react';
+
 type Props = {
-  children: JSX.Element | JSX.Element[] | undefined;
+  children?: ReactNode;
 };
 
 function Header({ children }: Props) {

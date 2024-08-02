@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { Header } from '../components/header';
 import { QuizOption } from '../quiz-page/components/quiz-option';
 
-// import { questions } from '../../mocks/questions';
 import { AnswerOption, QuestionTheme } from '../../types/types';
 import { questionThemes } from '../../lib/question-themes';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useQuiz } from '../../lib/quiz-context';
 
 function AnswerReviewPage() {
@@ -15,7 +14,7 @@ function AnswerReviewPage() {
   const { questions } = useQuiz();
 
   const state = useLocation().state;
-  const answers: number[] = state?.answers ?? [-1, -1, -1, -1, -1, -1, -1, -1];
+  const answers: number[] = state?.answers;
 
   const [currentQuestion, SetCurrentQuestion] = useState(
     state?.questionIndex ?? 0

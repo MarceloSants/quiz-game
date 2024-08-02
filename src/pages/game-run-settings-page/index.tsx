@@ -1,9 +1,9 @@
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { Toaster, toast } from 'sonner';
 
-import { questionThemes } from '../../lib/question-themes';
-
 import { Header } from '../components/header';
+
+import { questionThemes } from '../../lib/question-themes';
 import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../../lib/quiz-context';
 import { getQuestionsByTheme } from '../../mocks/questions';
@@ -37,17 +37,13 @@ function GameRunSettingsPage() {
     // navigate('/', { state: { selectedThemes: selectedThemes } });
   };
 
-  const handleGameStart = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleGameStart = () => {
     if (selectedThemes.length == 0) {
       console.log('Should select at least one theme');
       toast.warning('Should select at least one theme');
       return;
     }
 
-    // const data = new FormData(event.currentTarget);
-    // const values = Object.fromEntries(data.entries());
-    // console.log(values);
     const questions = selectedThemes
       .map((theme) => {
         console.log(theme);
@@ -59,7 +55,6 @@ function GameRunSettingsPage() {
 
     navigate('/quiz', {
       state: {
-        selectedThemes: selectedThemes,
         totalTime: totalTime,
       },
     });
@@ -77,7 +72,7 @@ function GameRunSettingsPage() {
       />
 
       <div className='w-full flex flex-col items-center justify-start relative'>
-        <Header>{<></>}</Header>
+        <Header />
         <div className='bg-white w-2/4 h-max p-8 rounded-sm absolute top-20 shadow-cardShadow'>
           <div className='flex flex-col gap-4 sm:gap-2 lg:gap-6 xl:gap-8 2xl:gap-12'>
             <div className='flex flex-col px-4 gap-2'>
@@ -116,7 +111,6 @@ function GameRunSettingsPage() {
                 <form
                   id='ruleForm'
                   className='flex gap-8 flex-wrap'
-                  onSubmit={handleGameStart}
                 >
                   <div className='flex gap-2'>
                     <p className=' text-gray-400'>Number of Questions</p>
@@ -165,6 +159,7 @@ function GameRunSettingsPage() {
                   form='ruleForm'
                   type='submit'
                   className='w-full py-2 border-2 rounded-lg border-blue-400 text-white bg-blue-400 font-medium'
+                  onClick={handleGameStart}
                 >
                   Start
                 </button>
