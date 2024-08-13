@@ -70,4 +70,4 @@ function ResultPage() {
   );
 }
 
-export default ResultPage;
+export { ResultPage };

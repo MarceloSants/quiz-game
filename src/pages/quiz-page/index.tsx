@@ -242,4 +242,4 @@ function QuizPage() {
   );
 }
 
-export default QuizPage;
+export { QuizPage };
