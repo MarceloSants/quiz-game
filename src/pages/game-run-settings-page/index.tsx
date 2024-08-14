@@ -36,7 +36,8 @@ function GameRunSettingsPage() {
     navigate('/', { state: { selectedThemes: selectedThemes } });
   };
 
-  const handleGameStart = () => {
+  const handleGameStart = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (selectedThemes.length == 0) {
       toast.warning('Should select at least one theme');
       return;
@@ -65,6 +66,9 @@ function GameRunSettingsPage() {
             title: 'text-gray-700',
           },
         }}
+        visibleToasts={2}
+        position='top-right'
+        duration={2000}
       />
 
       <div className='w-full flex flex-col items-center justify-start relative'>
@@ -107,6 +111,7 @@ function GameRunSettingsPage() {
                 <form
                   id='ruleForm'
                   className='flex gap-8 flex-wrap'
+                  onSubmit={handleGameStart}
                 >
                   <div className='flex gap-2'>
                     <p className=' text-gray-400'>Number of Questions</p>
@@ -155,7 +160,6 @@ function GameRunSettingsPage() {
                   form='ruleForm'
                   type='submit'
                   className='w-full py-2 border-2 rounded-lg border-blue-400 text-white bg-blue-400 font-medium'
-                  onClick={handleGameStart}
                 >
                   Start
                 </button>
