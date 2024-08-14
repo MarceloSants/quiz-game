@@ -3,7 +3,7 @@ import { Toaster, toast } from 'sonner';
 
 import { Header } from '../components/header';
 
-import { questionThemes } from '../../lib/question-themes';
+import { questionThemes } from '../../mocks/question-themes';
 import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../../lib/quiz-context';
 import { getQuestionsByTheme } from '../../mocks/questions';
@@ -33,29 +33,25 @@ function GameRunSettingsPage() {
   };
 
   const handleReturn = () => {
-    console.log('Should return to start page');
-    // navigate('/', { state: { selectedThemes: selectedThemes } });
+    navigate('/', { state: { selectedThemes: selectedThemes } });
   };
 
   const handleGameStart = () => {
     if (selectedThemes.length == 0) {
-      console.log('Should select at least one theme');
       toast.warning('Should select at least one theme');
       return;
     }
 
     const questions = selectedThemes
       .map((theme) => {
-        console.log(theme);
         return getQuestionsByTheme(theme, numberOfQuestions);
       })
       .flat();
     setQuestions(questions);
-    console.log(questions);
 
     navigate('/quiz', {
       state: {
-        totalTime: totalTime,
+        totalTime,
       },
     });
   };

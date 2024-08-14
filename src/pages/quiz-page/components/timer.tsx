@@ -1,11 +1,13 @@
 import { useState } from 'react';
+import { convertTime, timeToString } from '../../../lib/time-conversion';
 
 interface TimerProps {
   totalDuration: number;
   handleTimeOver: () => void;
+  setTimer: (time: number) => void;
 }
 
-function Timer({ totalDuration, handleTimeOver }: TimerProps) {
+function Timer({ totalDuration, handleTimeOver, setTimer }: TimerProps) {
   const [time, setTime] = useState(0);
 
   const handleTime = () => {
@@ -13,7 +15,9 @@ function Timer({ totalDuration, handleTimeOver }: TimerProps) {
       return;
     }
     setTimeout(() => {
-      setTime(time + 1);
+      const newTime = time + 1;
+      setTime(newTime);
+      setTimer(newTime);
       checkTimeOver();
     }, 1000);
   };
@@ -24,28 +28,12 @@ function Timer({ totalDuration, handleTimeOver }: TimerProps) {
     }
   };
 
-  const convertTime = () => {
-    let minutes: number;
-    let seconds: number;
-
-    const leftTime = totalDuration - time;
-
-    if (leftTime >= 60) {
-      minutes = Math.floor(leftTime / 60);
-      seconds = leftTime - minutes * 60;
-    } else {
-      minutes = 0;
-      seconds = leftTime;
-    }
-
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  };
-
-  const convertedTime = convertTime();
+  const { minutes, seconds } = convertTime(totalDuration - time);
+  const convertedTimeString = timeToString(minutes, seconds);
 
   handleTime();
 
-  return <p>{convertedTime}</p>;
+  return <p>{convertedTimeString}</p>;
 }
 
 export { Timer };

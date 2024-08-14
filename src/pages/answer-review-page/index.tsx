@@ -6,28 +6,40 @@ import { Header } from '../components/header';
 import { QuizOption } from '../quiz-page/components/quiz-option';
 
 import { AnswerOption, QuestionTheme } from '../../types/types';
-import { questionThemes } from '../../lib/question-themes';
+import { questionThemes } from '../../mocks/question-themes';
 import { useQuiz } from '../../lib/quiz-context';
+
+interface AnswerReviewPageLocationState {
+  timeLeft: number;
+  questionIndex: number;
+  answers: number[];
+}
 
 function AnswerReviewPage() {
   const navigate = useNavigate();
   const { questions } = useQuiz();
 
-  const state = useLocation().state;
-  const answers: number[] = state?.answers;
+  const answerReviewPageLocationState: AnswerReviewPageLocationState =
+    useLocation().state;
+  const answers: number[] = answerReviewPageLocationState?.answers;
 
-  const [currentQuestion, SetCurrentQuestion] = useState(
-    state?.questionIndex ?? 0
+  const [currentQuestion, setCurrentQuestion] = useState(
+    answerReviewPageLocationState?.questionIndex ?? 0
   );
 
-  const [selectedAnswer, SetSelectedAnswer] = useState(
-    answers[state?.questionIndex] !== -1
-      ? answers[state?.questionIndex]
+  const [selectedAnswer, setSelectedAnswer] = useState(
+    answers[answerReviewPageLocationState?.questionIndex] !== -1
+      ? answers[answerReviewPageLocationState?.questionIndex]
       : questions[currentQuestion].options.length
   );
 
   const handleFinishReview = () => {
-    navigate('/quiz-result', { state: { answers: answers } });
+    navigate('/quiz-result', {
+      state: {
+        timeLeft: answerReviewPageLocationState?.timeLeft,
+        answers,
+      },
+    });
   };
 
   const handlePreviousQuestion = () => {
@@ -49,9 +61,9 @@ function AnswerReviewPage() {
   };
 
   const setQuestion = (index: number) => {
-    SetCurrentQuestion(index);
+    setCurrentQuestion(index);
     const answerFixed = getAnswerFixed(index);
-    SetSelectedAnswer(answerFixed);
+    setSelectedAnswer(answerFixed);
   };
 
   const getAnswerFixed = (index: number) => {

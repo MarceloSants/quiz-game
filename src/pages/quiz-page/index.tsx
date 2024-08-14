@@ -6,7 +6,7 @@ import { QuizOption } from './components/quiz-option';
 import { Timer } from './components/timer';
 import { Header } from '../components/header';
 
-import { questionThemes } from '../../lib/question-themes';
+import { questionThemes } from '../../mocks/question-themes';
 import { AnswerOption, QuestionTheme } from '../../types/types';
 import { useQuiz } from '../../lib/quiz-context';
 
@@ -20,17 +20,18 @@ function QuizPage() {
   const { questions } = useQuiz();
   const quizPageLocationState: QuizPageLocationState = location?.state;
 
-  const [correctAnswers, SetCorrectAnswers] = useState(0);
-  const [wrongAnswers, SetWrongAnswers] = useState(0);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [wrongAnswers, setWrongAnswers] = useState(0);
+  const [time, SetTime] = useState(0);
 
   const [answers, setAnswers] = useState<number[]>(
     Array.from({ length: questions.length }, () => -1)
   );
 
   const [skippedQuestions, setSkippedQuestions] = useState<number[]>([]);
-  const [selectedAnswer, SetSelectedAnswer] = useState(-1);
-  const [currentQuestion, SetCurrentQuestion] = useState(0);
-  const [isAnswerConfirmed, SetIsAnswerConfirmed] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState(-1);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [isAnswerConfirmed, setIsAnswerConfirmed] = useState(false);
   const [hasSeenAllQuestions, setHasSeenAllQuestions] = useState(false);
 
   const handleAnswerSelect = (index: number) => {
@@ -40,7 +41,7 @@ function QuizPage() {
     if (index == selectedAnswer) {
       return;
     }
-    SetSelectedAnswer(index);
+    setSelectedAnswer(index);
   };
 
   const confirmAnswer = () => {
@@ -49,15 +50,15 @@ function QuizPage() {
     }
 
     if (selectedAnswer == questions[currentQuestion].correctAnswer) {
-      SetCorrectAnswers(correctAnswers + 1);
+      setCorrectAnswers(correctAnswers + 1);
     } else {
-      SetWrongAnswers(wrongAnswers + 1);
+      setWrongAnswers(wrongAnswers + 1);
     }
 
     const newAnswers = [...answers];
     newAnswers[currentQuestion] = selectedAnswer;
     setAnswers(newAnswers);
-    SetIsAnswerConfirmed(true);
+    setIsAnswerConfirmed(true);
   };
 
   const handleSkipQuestion = () => {
@@ -68,7 +69,7 @@ function QuizPage() {
   const handleNextQuestion = () => {
     if (hasSeenAllQuestions == false) {
       if (currentQuestion < questions.length - 1) {
-        SetCurrentQuestion(currentQuestion + 1);
+        setCurrentQuestion(currentQuestion + 1);
         resetAnwserSelection();
       } else {
         // final
@@ -82,7 +83,7 @@ function QuizPage() {
 
   const checkForSkippedQuestions = () => {
     if (skippedQuestions.length > 0) {
-      SetCurrentQuestion(skippedQuestions[0]);
+      setCurrentQuestion(skippedQuestions[0]);
 
       setSkippedQuestions((prev) => {
         const newSkippedQuestionArray = [...prev];
@@ -95,8 +96,8 @@ function QuizPage() {
   };
 
   const resetAnwserSelection = () => {
-    SetIsAnswerConfirmed(false);
-    SetSelectedAnswer(-1);
+    setIsAnswerConfirmed(false);
+    setSelectedAnswer(-1);
   };
 
   const getQuestionTheme = (code: string) => {
@@ -114,8 +115,16 @@ function QuizPage() {
     handleGameFinish();
   };
 
+  const setTimer = (time: number) => {
+    SetTime(time);
+  };
+
+  const timeLeft = quizPageLocationState.totalTime - time;
+
   const handleGameFinish = () => {
-    navigate('/quiz-result', { state: { answers: answers } });
+    navigate('/quiz-result', {
+      state: { timeLeft, answers },
+    });
   };
 
   const currentQuestionTheme = getQuestionTheme(
@@ -142,8 +151,9 @@ function QuizPage() {
           </div>
         </div>
         <Timer
-          totalDuration={quizPageLocationState['totalTime']}
+          totalDuration={quizPageLocationState.totalTime}
           handleTimeOver={handleTimeOver}
+          setTimer={setTimer}
         />
       </Header>
       <div className='bg-white w-2/4 h-max p-8 rounded-sm absolute top-20 shadow-cardShadow'>

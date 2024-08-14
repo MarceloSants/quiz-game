@@ -4,26 +4,42 @@ import { Header } from '../components/header';
 import { AnswerResultButton } from './components/answer-result-button';
 
 import { useQuiz } from '../../lib/quiz-context';
+import { convertTime, timeToString } from '../../lib/time-conversion';
 
-const handleFinish = () => {};
+interface ResultPageLocationState {
+  timeLeft: number;
+  answers: number[];
+}
 
 function ResultPage() {
   const navigate = useNavigate();
-  const state = useLocation().state;
+  const resultPageLocationState: ResultPageLocationState = useLocation().state;
   const { questions } = useQuiz();
-  const answers: number[] = state.answers;
+  const answers: number[] = resultPageLocationState.answers;
+  const timeLeft = resultPageLocationState.timeLeft;
+
+  const handleFinish = () => {
+    navigate('/');
+  };
 
   const handleReview = (questionIndex = 0) => {
     navigate('/answer-review', {
-      state: { questionIndex: questionIndex, answers: answers },
+      state: {
+        timeLeft,
+        questionIndex,
+        answers,
+      },
     });
   };
+
+  const { minutes, seconds } = convertTime(timeLeft);
+  const convertedTimeString = timeToString(minutes, seconds);
 
   return (
     <div className='w-full flex flex-col items-center justify-start relative'>
       <Header>
         <p>You finished</p>
-        <p>00:00</p>
+        <p>{convertedTimeString}</p>
       </Header>
       <div className='bg-white w-2/4 h-max p-8 rounded-sm absolute top-20 shadow-cardShadow'>
         <div className='flex flex-col items-center gap-6 lg:gap-6 xl:gap-8 2xl:gap-12'>
