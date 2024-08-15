@@ -73,7 +73,7 @@ function GameRunSettingsPage() {
 
       <div className='w-full flex flex-col items-center justify-start relative'>
         <Header />
-        <div className='bg-white w-2/4 h-max p-8 rounded-sm absolute top-20 shadow-cardShadow'>
+        <div className='bg-white w-2/4 h-max min-h-[70vh] flex flex-col justify-between p-8 rounded-sm absolute top-20 shadow-cardShadow'>
           <div className='flex flex-col gap-4 sm:gap-2 lg:gap-6 xl:gap-8 2xl:gap-12'>
             <div className='flex flex-col px-4 gap-2'>
               <div className='flex items-center justify-between'></div>
@@ -146,24 +146,24 @@ function GameRunSettingsPage() {
                 </form>
               </div>
             </div>
-            <div className='flex gap-4 items-end justify-center'>
+          </div>
+          <div className='flex gap-4 items-end justify-center'>
+            <button
+              onClick={() => {
+                handleReturn();
+              }}
+              className='flex-1 py-2 border-2 rounded-lg border-blue-400 text-blue-400 font-medium'
+            >
+              Back
+            </button>
+            <div className='flex flex-1 flex-col items-center'>
               <button
-                onClick={() => {
-                  handleReturn();
-                }}
-                className='flex-1 py-2 border-2 rounded-lg border-blue-400 text-blue-400 font-medium'
+                form='ruleForm'
+                type='submit'
+                className='w-full py-2 border-2 rounded-lg border-blue-400 text-white bg-blue-400 font-medium'
               >
-                Back
+                Start
               </button>
-              <div className='flex flex-1 flex-col items-center'>
-                <button
-                  form='ruleForm'
-                  type='submit'
-                  className='w-full py-2 border-2 rounded-lg border-blue-400 text-white bg-blue-400 font-medium'
-                >
-                  Start
-                </button>
-              </div>
             </div>
           </div>
         </div>

@@ -93,8 +93,8 @@ function AnswerReviewPage() {
       <Header>
         <p>Answer Review</p>
       </Header>
-      <div className='bg-white w-2/4 h-max p-8 rounded-sm absolute top-20 shadow-cardShadow'>
-        <div className='flex gap-4 items-center'>
+      <div className='bg-white w-2/4 h-max min-h-[50vh] flex flex-col justify-between p-8 rounded-sm absolute top-20 shadow-cardShadow'>
+        <div className='flex gap-4 items-center justify-between'>
           <button
             onClick={() => {
               handlePreviousQuestion();
@@ -157,16 +157,6 @@ function AnswerReviewPage() {
                 />
               </div>
             </div>
-            <div className='flex gap-4 items-end justify-center'>
-              <button
-                onClick={() => {
-                  handleFinishReview();
-                }}
-                className='flex-1 py-2 border-2 rounded-lg border-blue-400 text-blue-400 font-medium'
-              >
-                Finish Review
-              </button>
-            </div>
           </div>
           <button
             onClick={() => {
@@ -175,6 +165,16 @@ function AnswerReviewPage() {
             className='text-white px-1 py-4 bg-blue-400 rounded-md hover:bg-blue-500'
           >
             <ChevronRight />
+          </button>
+        </div>
+        <div className='flex gap-4 items-end justify-center'>
+          <button
+            onClick={() => {
+              handleFinishReview();
+            }}
+            className='flex-1 py-2 border-2 rounded-lg border-blue-400 text-blue-400 font-medium'
+          >
+            Finish Review
           </button>
         </div>
       </div>

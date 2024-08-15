@@ -41,7 +41,7 @@ function ResultPage() {
         <p>You finished</p>
         <p>{convertedTimeString}</p>
       </Header>
-      <div className='bg-white w-2/4 h-max p-8 rounded-sm absolute top-20 shadow-cardShadow'>
+      <div className='bg-white w-2/4 h-max min-h-[50vh] flex flex-col justify-between p-8 rounded-sm absolute top-20 shadow-cardShadow'>
         <div className='flex flex-col items-center gap-6 lg:gap-6 xl:gap-8 2xl:gap-12'>
           <div className='flex flex-col gap-2 items-center px-4'>
             <h1 className='text-gray-500 text-2xl leading-7'>Results</h1>
@@ -61,25 +61,24 @@ function ResultPage() {
               );
             })}
           </div>
-
-          <div className='w-full flex gap-4 items-center justify-between'>
-            <button
-              onClick={() => {
-                handleReview();
-              }}
-              className='flex-1 py-2 border-2 rounded-lg border-blue-400 text-blue-400 font-medium'
-            >
-              Review
-            </button>
-            <button
-              onClick={() => {
-                handleFinish();
-              }}
-              className='flex-1 py-2 border-2 rounded-lg border-blue-400 text-white bg-blue-400 font-medium'
-            >
-              Finish
-            </button>
-          </div>
+        </div>
+        <div className='w-full flex gap-4 items-center justify-between'>
+          <button
+            onClick={() => {
+              handleReview();
+            }}
+            className='flex-1 py-2 border-2 rounded-lg border-blue-400 text-blue-400 font-medium'
+          >
+            Review
+          </button>
+          <button
+            onClick={() => {
+              handleFinish();
+            }}
+            className='flex-1 py-2 border-2 rounded-lg border-blue-400 text-white bg-blue-400 font-medium'
+          >
+            Finish
+          </button>
         </div>
       </div>
     </div>

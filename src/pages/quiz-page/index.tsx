@@ -156,7 +156,7 @@ function QuizPage() {
           setTimer={setTimer}
         />
       </Header>
-      <div className='bg-white w-2/4 h-max p-8 rounded-sm absolute top-20 shadow-cardShadow'>
+      <div className='bg-white w-2/4 h-max min-h-[50vh] flex flex-col justify-between p-8 rounded-sm absolute top-20 shadow-cardShadow'>
         <div className='flex flex-col gap-4 sm:gap-2 lg:gap-6 xl:gap-8 2xl:gap-12'>
           <div className='flex flex-col px-4 gap-2'>
             <div className='flex items-center justify-between'>
@@ -203,49 +203,49 @@ function QuizPage() {
               )}
             </div>
           </div>
-          <div className='flex gap-4 items-end justify-center'>
-            {!isAnswerConfirmed ? (
-              <>
-                <button
-                  onClick={() => {
-                    handleSkipQuestion();
-                  }}
-                  className='flex-1 py-2 border-2 rounded-lg border-blue-400 text-blue-400 font-medium'
-                >
-                  Skip
-                </button>
-                <div className='flex flex-1 flex-col items-center'>
-                  {hasSeenAllQuestions && (
-                    <button
-                      onClick={() => {
-                        handleGameFinish();
-                      }}
-                      className='w-full text-blue-400'
-                    >
-                      Finish Quiz
-                    </button>
-                  )}
-                  <button
-                    onClick={() => {
-                      confirmAnswer();
-                    }}
-                    className='w-full py-2 border-2 rounded-lg border-blue-400 text-white bg-blue-400 font-medium'
-                  >
-                    Send Answer
-                  </button>
-                </div>
-              </>
-            ) : (
+        </div>
+        <div className='flex gap-4 items-end justify-center'>
+          {!isAnswerConfirmed ? (
+            <>
               <button
                 onClick={() => {
-                  handleNextQuestion();
+                  handleSkipQuestion();
                 }}
-                className='flex-1 py-2 border-2 rounded-lg border-blue-400 text-white bg-blue-400 font-medium'
+                className='flex-1 py-2 border-2 rounded-lg border-blue-400 text-blue-400 font-medium'
               >
-                Next Question
+                Skip
               </button>
-            )}
-          </div>
+              <div className='flex flex-1 flex-col items-center'>
+                {hasSeenAllQuestions && (
+                  <button
+                    onClick={() => {
+                      handleGameFinish();
+                    }}
+                    className='w-full text-blue-400'
+                  >
+                    Finish Quiz
+                  </button>
+                )}
+                <button
+                  onClick={() => {
+                    confirmAnswer();
+                  }}
+                  className='w-full py-2 border-2 rounded-lg border-blue-400 text-white bg-blue-400 font-medium'
+                >
+                  Send Answer
+                </button>
+              </div>
+            </>
+          ) : (
+            <button
+              onClick={() => {
+                handleNextQuestion();
+              }}
+              className='flex-1 py-2 border-2 rounded-lg border-blue-400 text-white bg-blue-400 font-medium'
+            >
+              Next Question
+            </button>
+          )}
         </div>
       </div>
     </div>
