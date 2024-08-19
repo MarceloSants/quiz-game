@@ -1,11 +1,12 @@
 import { QuestionGroup } from '../types/types';
+import { questionThemes } from './question-themes';
 
 const videoGameQuestions: QuestionGroup = {
   theme: 'video-game',
   questions: [
     {
-      theme: 'video-game',
-      question:
+      theme: questionThemes[0],
+      title:
         'In which video game do players compete in the Battle Royale mode to be the last person standing on an island?',
       options: [
         { id: 0, text: 'Fortnite' },
@@ -16,8 +17,8 @@ const videoGameQuestions: QuestionGroup = {
       correctAnswer: 0,
     },
     {
-      theme: 'video-game',
-      question:
+      theme: questionThemes[0],
+      title:
         "What is the name of the main protagonist in the 'Legend of Zelda' series?",
       options: [
         { id: 0, text: 'Link' },
@@ -28,8 +29,8 @@ const videoGameQuestions: QuestionGroup = {
       correctAnswer: 0,
     },
     {
-      theme: 'video-game',
-      question:
+      theme: questionThemes[0],
+      title:
         'Which video game features a space marine known as Doomguy who fights demons from Hell?',
       options: [
         { id: 0, text: 'Halo' },
@@ -40,8 +41,8 @@ const videoGameQuestions: QuestionGroup = {
       correctAnswer: 1,
     },
     {
-      theme: 'video-game',
-      question: "Which game is known for the quote 'The cake is a lie'?",
+      theme: questionThemes[0],
+      title: "Which game is known for the quote 'The cake is a lie'?",
       options: [
         { id: 0, text: 'Half-Life 2' },
         { id: 1, text: 'Portal' },
@@ -51,8 +52,8 @@ const videoGameQuestions: QuestionGroup = {
       correctAnswer: 1,
     },
     {
-      theme: 'video-game',
-      question:
+      theme: questionThemes[0],
+      title:
         "In 'Overwatch', which character is known for the catchphrase 'It's high noon'?",
       options: [
         { id: 0, text: 'Tracer' },
@@ -63,8 +64,8 @@ const videoGameQuestions: QuestionGroup = {
       correctAnswer: 2,
     },
     {
-      theme: 'video-game',
-      question: 'Which game series features an assassin named Ezio Auditore?',
+      theme: questionThemes[0],
+      title: 'Which game series features an assassin named Ezio Auditore?',
       options: [
         { id: 0, text: 'Hitman' },
         { id: 1, text: "Assassin's Creed" },
@@ -74,8 +75,8 @@ const videoGameQuestions: QuestionGroup = {
       correctAnswer: 1,
     },
     {
-      theme: 'video-game',
-      question: 'What is the best-selling video game of all time?',
+      theme: questionThemes[0],
+      title: 'What is the best-selling video game of all time?',
       options: [
         { id: 0, text: 'Minecraft' },
         { id: 1, text: 'Tetris' },
@@ -85,8 +86,8 @@ const videoGameQuestions: QuestionGroup = {
       correctAnswer: 0,
     },
     {
-      theme: 'video-game',
-      question: 'Which game features the characters Master Chief and Cortana?',
+      theme: questionThemes[0],
+      title: 'Which game features the characters Master Chief and Cortana?',
       options: [
         { id: 0, text: 'Mass Effect' },
         { id: 1, text: 'Halo' },
@@ -96,8 +97,8 @@ const videoGameQuestions: QuestionGroup = {
       correctAnswer: 1,
     },
     {
-      theme: 'video-game',
-      question:
+      theme: questionThemes[0],
+      title:
         "What is the name of the city where the game 'BioShock' takes place?",
       options: [
         { id: 0, text: 'Rapture' },
@@ -108,9 +109,8 @@ const videoGameQuestions: QuestionGroup = {
       correctAnswer: 0,
     },
     {
-      theme: 'video-game',
-      question:
-        'In which game do you play as Geralt of Rivia, a monster hunter?',
+      theme: questionThemes[0],
+      title: 'In which game do you play as Geralt of Rivia, a monster hunter?',
       options: [
         { id: 0, text: 'Dark Souls' },
         { id: 1, text: 'The Witcher' },
@@ -126,8 +126,8 @@ const cinemaGameQuestions: QuestionGroup = {
   theme: 'cinema',
   questions: [
     {
-      theme: 'cinema',
-      question: "Who directed the movie 'Inception'?",
+      theme: questionThemes[1],
+      title: "Who directed the movie 'Inception'?",
       options: [
         { id: 0, text: 'Steven Spielberg' },
         { id: 1, text: 'Christopher Nolan' },
@@ -137,8 +137,8 @@ const cinemaGameQuestions: QuestionGroup = {
       correctAnswer: 1,
     },
     {
-      theme: 'cinema',
-      question:
+      theme: questionThemes[1],
+      title:
         'Which movie features a giant ship sinking after hitting an iceberg?',
       options: [
         { id: 0, text: 'Poseidon' },
@@ -149,8 +149,8 @@ const cinemaGameQuestions: QuestionGroup = {
       correctAnswer: 1,
     },
     {
-      theme: 'cinema',
-      question:
+      theme: questionThemes[1],
+      title:
         "Which actor played the character of Jack Sparrow in the 'Pirates of the Caribbean' series?",
       options: [
         { id: 0, text: 'Orlando Bloom' },
@@ -161,8 +161,8 @@ const cinemaGameQuestions: QuestionGroup = {
       correctAnswer: 1,
     },
     {
-      theme: 'cinema',
-      question:
+      theme: questionThemes[1],
+      title:
         "In which movie does the character 'Forrest Gump' say, 'Life is like a box of chocolates'?",
       options: [
         { id: 0, text: 'Cast Away' },
@@ -173,8 +173,8 @@ const cinemaGameQuestions: QuestionGroup = {
       correctAnswer: 2,
     },
     {
-      theme: 'cinema',
-      question: "Which film features the quote, 'Here's looking at you, kid'?",
+      theme: questionThemes[1],
+      title: "Which film features the quote, 'Here's looking at you, kid'?",
       options: [
         { id: 0, text: 'Gone with the Wind' },
         { id: 1, text: 'Casablanca' },
@@ -184,8 +184,8 @@ const cinemaGameQuestions: QuestionGroup = {
       correctAnswer: 1,
     },
     {
-      theme: 'cinema',
-      question: "Who played the character of Neo in 'The Matrix'?",
+      theme: questionThemes[1],
+      title: "Who played the character of Neo in 'The Matrix'?",
       options: [
         { id: 0, text: 'Keanu Reeves' },
         { id: 1, text: 'Laurence Fishburne' },
@@ -195,8 +195,8 @@ const cinemaGameQuestions: QuestionGroup = {
       correctAnswer: 0,
     },
     {
-      theme: 'cinema',
-      question: 'Which movie won the Academy Award for Best Picture in 2020?',
+      theme: questionThemes[1],
+      title: 'Which movie won the Academy Award for Best Picture in 2020?',
       options: [
         { id: 0, text: '1917' },
         { id: 1, text: 'Joker' },
@@ -206,8 +206,8 @@ const cinemaGameQuestions: QuestionGroup = {
       correctAnswer: 2,
     },
     {
-      theme: 'cinema',
-      question: "Who directed the 'Lord of the Rings' trilogy?",
+      theme: questionThemes[1],
+      title: "Who directed the 'Lord of the Rings' trilogy?",
       options: [
         { id: 0, text: 'Peter Jackson' },
         { id: 1, text: 'George Lucas' },
@@ -217,8 +217,8 @@ const cinemaGameQuestions: QuestionGroup = {
       correctAnswer: 0,
     },
     {
-      theme: 'cinema',
-      question:
+      theme: questionThemes[1],
+      title:
         "Which actress played the role of Katniss Everdeen in 'The Hunger Games' series?",
       options: [
         { id: 0, text: 'Shailene Woodley' },
@@ -229,8 +229,8 @@ const cinemaGameQuestions: QuestionGroup = {
       correctAnswer: 2,
     },
     {
-      theme: 'cinema',
-      question:
+      theme: questionThemes[1],
+      title:
         'Which movie features a group of friends on a quest to find a lost treasure and save their homes from foreclosure?',
       options: [
         { id: 0, text: 'Stand by Me' },

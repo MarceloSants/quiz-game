@@ -6,8 +6,8 @@ import { QuizOption } from './components/quiz-option';
 import { Timer } from './components/timer';
 import { Header } from '../components/header';
 
-import { questionThemes } from '../../mocks/question-themes';
-import { AnswerOption, QuestionTheme } from '../../types/types';
+// import { questionThemes } from '../../mocks/question-themes';
+import { AnswerOption } from '../../types/types';
 import { useQuiz } from '../../lib/quiz-context';
 
 interface QuizPageLocationState {
@@ -67,12 +67,11 @@ function QuizPage() {
   };
 
   const handleNextQuestion = () => {
-    if (hasSeenAllQuestions == false) {
+    if (hasSeenAllQuestions === false) {
       if (currentQuestion < questions.length - 1) {
         setCurrentQuestion(currentQuestion + 1);
         resetAnwserSelection();
       } else {
-        // final
         setHasSeenAllQuestions(true);
         checkForSkippedQuestions();
       }
@@ -92,22 +91,14 @@ function QuizPage() {
       });
 
       resetAnwserSelection();
+    } else {
+      handleGameFinish();
     }
   };
 
   const resetAnwserSelection = () => {
     setIsAnswerConfirmed(false);
     setSelectedAnswer(-1);
-  };
-
-  const getQuestionTheme = (code: string) => {
-    let currentTheme: QuestionTheme | undefined;
-    questionThemes.forEach((theme) => {
-      if (theme.code == code) {
-        currentTheme = theme;
-      }
-    });
-    return currentTheme;
   };
 
   const handleTimeOver = () => {
@@ -127,9 +118,8 @@ function QuizPage() {
     });
   };
 
-  const currentQuestionTheme = getQuestionTheme(
-    questions[currentQuestion].theme
-  );
+  console.log(questions[currentQuestion].theme);
+  console.log(questions);
 
   return (
     <div className='w-full flex flex-col items-center justify-start relative'>
@@ -164,12 +154,15 @@ function QuizPage() {
                 questions.length
               } remaining)`}</p>
               <div className='flex gap-1'>
-                {currentQuestionTheme ? (
+                {questions[currentQuestion].theme ? (
                   <div
-                    className={`${currentQuestionTheme.color} rounded-md px-2`}
+                    style={{
+                      backgroundColor: questions[currentQuestion].theme.color,
+                    }}
+                    className={'rounded-md px-2'}
                   >
                     <p className='text-white text-sm font-semibold'>
-                      {currentQuestionTheme.name}
+                      {questions[currentQuestion].theme.name}
                     </p>
                   </div>
                 ) : (
@@ -178,7 +171,7 @@ function QuizPage() {
               </div>
             </div>
             <h1 className='text-gray-500 text-2xl leading-7'>
-              {questions[currentQuestion].question}
+              {questions[currentQuestion].title}
             </h1>
           </div>
           <div className='flex flex-col gap-1'>
@@ -243,7 +236,7 @@ function QuizPage() {
               }}
               className='flex-1 py-2 border-2 rounded-lg border-blue-400 text-white bg-blue-400 font-medium'
             >
-              Next Question
+              Next
             </button>
           )}
         </div>

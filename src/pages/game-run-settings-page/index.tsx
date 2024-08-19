@@ -1,16 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Toaster, toast } from 'sonner';
 
 import { Header } from '../components/header';
 
-import { questionThemes } from '../../mocks/question-themes';
+// import { questionThemes } from '../../mocks/question-themes';
 import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../../lib/quiz-context';
-import { getQuestionsByTheme } from '../../mocks/questions';
+// import { getQuestionsByTheme } from '../../mocks/questions';
+import { api } from '../../lib/axios';
+import { Question, QuestionData, QuestionTheme } from '../../types/types';
+// import { QuestionTheme } from '../../types/types';
 
 function GameRunSettingsPage() {
   const navigate = useNavigate();
   const { setQuestions } = useQuiz();
+  const [themes, setThemes] = useState<QuestionTheme[]>([]);
   const [selectedThemes, setSelectedThemes] = useState<string[]>([]);
   const [numberOfQuestions, setNumberOfQuestions] = useState(5);
   const [totalTime, setTotalTime] = useState(60);
@@ -32,22 +36,53 @@ function GameRunSettingsPage() {
     }
   };
 
-  const handleReturn = () => {
+  const getQuestions = async () => {
+    const questions = await Promise.all(
+      selectedThemes
+        .map(async (theme) => {
+          return await api
+            .get(`/questions`, {
+              params: {
+                count: numberOfQuestions,
+                themeId: themes.find((t) => t.code === theme)?.id,
+              },
+            })
+            .then((response) => {
+              return response.data;
+            });
+        })
+        .flat()
+    );
+
+    return questions;
+  };
+
+  const handleReturn = async () => {
     navigate('/', { state: { selectedThemes: selectedThemes } });
   };
 
-  const handleGameStart = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleGameStart = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (selectedThemes.length == 0) {
       toast.warning('Should select at least one theme');
       return;
     }
 
-    const questions = selectedThemes
-      .map((theme) => {
-        return getQuestionsByTheme(theme, numberOfQuestions);
-      })
-      .flat();
+    const questionsData = await getQuestions();
+    const questions = questionsData.flat().map((data: QuestionData) => {
+      return {
+        theme: themes.find((theme) => theme.id === data.themeId),
+        title: data.title,
+        options: [
+          { id: 0, text: data.answer1 },
+          { id: 1, text: data.answer2 },
+          { id: 2, text: data.answer3 },
+          { id: 3, text: data.answer4 },
+        ],
+        correctAnswer: data.correctAnswer,
+      } as Question;
+    });
+
     setQuestions(questions);
 
     navigate('/quiz', {
@@ -56,6 +91,13 @@ function GameRunSettingsPage() {
       },
     });
   };
+
+  useEffect(() => {
+    api.get(`/themes`).then((response) => {
+      console.log(response.data);
+      setThemes(response.data);
+    });
+  }, []);
 
   return (
     <>
@@ -84,16 +126,21 @@ function GameRunSettingsPage() {
                 <h2 className='text-xl'>Themes</h2>
 
                 <div className='flex gap-2 flex-wrap'>
-                  {questionThemes.map((theme) => {
+                  {themes.map((theme) => {
                     return (
                       <button
                         key={theme.code}
                         onClick={() => {
                           handleThemeClick(theme.code);
                         }}
+                        style={{
+                          backgroundColor: selectedThemes.includes(theme.code)
+                            ? theme.color
+                            : undefined,
+                        }}
                         className={`${
                           selectedThemes.includes(theme.code)
-                            ? theme.color
+                            ? ''
                             : 'bg-slate-400'
                         } w-fit rounded-md px-2`}
                       >

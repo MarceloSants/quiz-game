@@ -1,13 +1,21 @@
-export interface Option {
-  id: number;
-  text: string;
+export interface Question {
+  theme: QuestionTheme;
+  title: string;
+  options: AnswerOption[];
+  correctAnswer: number;
 }
 
-export interface Question {
-  theme: string;
-  question: string;
-  options: Option[];
+export interface QuestionData {
+  id: number;
+  themeId: number;
+  title: string;
+  answer1: string;
+  answer2: string;
+  answer3: string;
+  answer4: string;
   correctAnswer: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface QuestionGroup {
@@ -16,6 +24,7 @@ export interface QuestionGroup {
 }
 
 export interface QuestionTheme {
+  id: number;
   code: string;
   name: string;
   color: string;

@@ -5,8 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Header } from '../components/header';
 import { QuizOption } from '../quiz-page/components/quiz-option';
 
-import { AnswerOption, QuestionTheme } from '../../types/types';
-import { questionThemes } from '../../mocks/question-themes';
+import { AnswerOption } from '../../types/types';
 import { useQuiz } from '../../lib/quiz-context';
 
 interface AnswerReviewPageLocationState {
@@ -74,20 +73,6 @@ function AnswerReviewPage() {
     }
   };
 
-  const getQuestionTheme = (code: string) => {
-    let currentTheme: QuestionTheme | undefined;
-    questionThemes.forEach((theme) => {
-      if (theme.code == code) {
-        currentTheme = theme;
-      }
-    });
-    return currentTheme;
-  };
-
-  const currentQuestionTheme = getQuestionTheme(
-    questions[currentQuestion].theme
-  );
-
   return (
     <div className='w-full flex flex-col items-center justify-start relative'>
       <Header>
@@ -110,12 +95,15 @@ function AnswerReviewPage() {
                   currentQuestion + 1
                 } (${questions.length} remaining)`}</p>
                 <div className='flex gap-1'>
-                  {currentQuestionTheme ? (
+                  {questions[currentQuestion].theme ? (
                     <div
-                      className={`${currentQuestionTheme.color} rounded-md px-2`}
+                      style={{
+                        backgroundColor: questions[currentQuestion].theme.color,
+                      }}
+                      className={'rounded-md px-2'}
                     >
                       <p className='text-white text-sm font-semibold'>
-                        {currentQuestionTheme.name}
+                        {questions[currentQuestion].theme.name}
                       </p>
                     </div>
                   ) : (
@@ -124,7 +112,7 @@ function AnswerReviewPage() {
                 </div>
               </div>
               <h1 className='text-gray-500 text-2xl leading-7'>
-                {questions[currentQuestion].question}
+                {questions[currentQuestion].title}
               </h1>
             </div>
             <div className='flex flex-col gap-1'>
