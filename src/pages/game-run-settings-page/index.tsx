@@ -83,6 +83,11 @@ function GameRunSettingsPage() {
       } as Question;
     });
 
+    if (questions.length === 0) {
+      toast.error('There is no question for the selected themes!');
+      return;
+    }
+
     setQuestions(questions);
 
     navigate('/quiz', {
@@ -104,6 +109,7 @@ function GameRunSettingsPage() {
       <Toaster
         toastOptions={{
           classNames: {
+            error: 'text-red-400',
             warning: 'text-yellow-400',
             title: 'text-gray-700',
           },
