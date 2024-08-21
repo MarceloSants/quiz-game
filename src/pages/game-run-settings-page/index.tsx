@@ -3,12 +3,13 @@ import { Toaster, toast } from 'sonner';
 
 import { Header } from '../components/header';
 
-// import { questionThemes } from '../../mocks/question-themes';
+import { questionThemes } from '../../mocks/question-themes';
 import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../../lib/quiz-context';
 // import { getQuestionsByTheme } from '../../mocks/questions';
 import { api } from '../../lib/axios';
 import { Question, QuestionData, QuestionTheme } from '../../types/types';
+import { getQuestionsByTheme } from '../../mocks/questions';
 // import { QuestionTheme } from '../../types/types';
 
 function GameRunSettingsPage() {
@@ -18,6 +19,7 @@ function GameRunSettingsPage() {
   const [selectedThemes, setSelectedThemes] = useState<string[]>([]);
   const [numberOfQuestions, setNumberOfQuestions] = useState(5);
   const [totalTime, setTotalTime] = useState(60);
+  const [mockDataUse, setMockDataUse] = useState(false);
 
   const handleThemeClick = (code: string) => {
     const index = selectedThemes.findIndex((themeCode) => themeCode === code);
@@ -63,28 +65,42 @@ function GameRunSettingsPage() {
 
   const handleGameStart = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    let questions = [];
+
     if (selectedThemes.length == 0) {
       toast.warning('Should select at least one theme');
       return;
     }
 
-    const questionsData = await getQuestions();
-    const questions = questionsData.flat().map((data: QuestionData) => {
-      return {
-        theme: themes.find((theme) => theme.id === data.themeId),
-        title: data.title,
-        options: [
-          { id: 0, text: data.answer1 },
-          { id: 1, text: data.answer2 },
-          { id: 2, text: data.answer3 },
-          { id: 3, text: data.answer4 },
-        ],
-        correctAnswer: data.correctAnswer,
-      } as Question;
-    });
+    if (mockDataUse === true) {
+      questions = selectedThemes
+        .map((theme) => {
+          return getQuestionsByTheme(theme);
+        })
+        .flat();
+
+      if (questions.length > numberOfQuestions) {
+        questions.splice(numberOfQuestions);
+      }
+    } else {
+      const questionsData = await getQuestions();
+      questions = questionsData.flat().map((data: QuestionData) => {
+        return {
+          theme: themes.find((theme) => theme.id === data.themeId),
+          title: data.title,
+          options: [
+            { id: 0, text: data.answer1 },
+            { id: 1, text: data.answer2 },
+            { id: 2, text: data.answer3 },
+            { id: 3, text: data.answer4 },
+          ],
+          correctAnswer: data.correctAnswer,
+        } as Question;
+      });
+    }
 
     if (questions.length === 0) {
-      toast.error('There is no question for the selected themes!');
+      toast.error('There are no question for the selected themes!');
       return;
     }
 
@@ -98,10 +114,17 @@ function GameRunSettingsPage() {
   };
 
   useEffect(() => {
-    api.get(`/themes`).then((response) => {
-      console.log(response.data);
-      setThemes(response.data);
-    });
+    api
+      .get(`/themes`)
+      .then((response) => {
+        console.log(response.data);
+        setThemes(response.data);
+      })
+      .catch((err) => {
+        setThemes(questionThemes);
+        setMockDataUse(true);
+        console.log(err.message);
+      });
   }, []);
 
   return (
@@ -132,6 +155,11 @@ function GameRunSettingsPage() {
                 <h2 className='text-xl'>Themes</h2>
 
                 <div className='flex gap-2 flex-wrap'>
+                  {themes.length === 0 && (
+                    <p className='text-gray-400'>
+                      There are no themes to select!
+                    </p>
+                  )}
                   {themes.map((theme) => {
                     return (
                       <button
