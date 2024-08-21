@@ -1,30 +1,43 @@
-# React + TypeScript + Vite
+# Quiz Game (front-end)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a question and answer game made by @MarceloSants for study purposes. It only represents the front-end of the application, you can also check the back-end here: [back end](https://github.com/MarceloSants/quiz-game-backend).
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+You can run this project by following the steps below. Without the backend, it will run with mock questions and themes.
 
-## Expanding the ESLint configuration
+- Run:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+  git clone https://github.com/MarceloSants/quiz-game.git
+  cd .\quiz-game\
+  npm install
+  npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Access:
+  http://localhost:5173/
+
+## Contributing
+
+Contributions are really welcome. You can do this by following:
+
+- Fork this repository
+- Clone your forked repository
+- Add your scripts
+- Commit and push
+- Create a pull request
+- Wait for pull request to merge
+
+## Technology and tools
+
+The list below contains all the main technologies I used to make this project. I decided to use them to practice some of the main tools and technologies used by large companies. They are not necessary, but each one speeds up the development process or makes it a little easier.
+
+- <b>Vite</b> - Environment for developing front-end
+- <b>React</b> - Used for building user interfaces
+- <b>Typescript</b> - Used to add type
+- <b>Tailwind CSS</b> - Used to speed up conponent styling
+- <b>Axios</b> - Used to help in HTTP requests
+- <b>React Router</b> - Used to handle page routing
+- <b>Lucid</b> - Used to display icons
+- <b>Sooner</b> - Used to display toasters
