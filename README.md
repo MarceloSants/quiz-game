@@ -36,7 +36,7 @@ The list below contains all the main technologies I used to make this project. I
 - <b>Vite</b> - Environment for developing front-end
 - <b>React</b> - Used for building user interfaces
 - <b>Typescript</b> - Used to add type
-- <b>Tailwind CSS</b> - Used to speed up conponent styling
+- <b>Tailwind CSS</b> - Used to speed up component styling
 - <b>Axios</b> - Used to help in HTTP requests
 - <b>React Router</b> - Used to handle page routing
 - <b>Lucid</b> - Used to display icons
