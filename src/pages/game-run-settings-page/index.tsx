@@ -75,13 +75,9 @@ function GameRunSettingsPage() {
     if (mockDataUse === true) {
       questions = selectedThemes
         .map((theme) => {
-          return getQuestionsByTheme(theme);
+          return getQuestionsByTheme(theme).splice(numberOfQuestions);
         })
         .flat();
-
-      if (questions.length > numberOfQuestions) {
-        questions.splice(numberOfQuestions);
-      }
     } else {
       const questionsData = await getQuestions();
       questions = questionsData.flat().map((data: QuestionData) => {
